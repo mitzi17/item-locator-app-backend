@@ -3,9 +3,9 @@ class ItemsController < ApplicationController
 
   # GET /items
   def index
-    @items = Item.all
+    @items = current_user.items
 
-    render json: @items
+    render json: ItemSerializer.new(@items).serializable_hash[:data].map{|hash| hash[:attributes]}
   end
 
   # GET /items/1
